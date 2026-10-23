@@ -28,6 +28,11 @@ That needs outbound network; without it the game still plays, just without art/a
 `/api/**` is deliberately **not** proxied: the in-game bug-report form then falls back to its
 GitHub issues link instead of sending mail from the sandbox.
 
+One exception: the shared chrome scripts the page loads from the live site probe `/api/auth/me`
+to paint their account label. This checkout has no auth backend, so `.base44/nginx.conf` answers
+that single path with the chrome's own anonymous state (`{"user":null}`) — a 404 there only spams
+the browser console on every load. Nothing else under `/api/` is answered.
+
 The repo's own `tools/spires/dev-server.mjs` also works locally, but it binds `127.0.0.1` and
 serves the repo root, so it cannot be the sandbox entry point.
 
