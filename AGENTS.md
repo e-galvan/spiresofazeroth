@@ -36,6 +36,17 @@ the browser console on every load. Nothing else under `/api/` is answered.
 The repo's own `tools/spires/dev-server.mjs` also works locally, but it binds `127.0.0.1` and
 serves the repo root, so it cannot be the sandbox entry point.
 
+## Verifying in the preview
+
+The whole game is one page (`/spiresofazeroth/`); state lives in localStorage, so a fresh page
+load starts at the title screen ("Choose class" starts a run, "Enter World" resumes a saved one).
+A driveable QA path: Choose class → pick a class → "Begin the climb" → click a `.sx-zone` →
+click a `.sx-node.reach` → in combat press the card's number (`1`–`9`) to pick it and press it
+again to play (or press once, then click the beast — the click must carry real pointer
+coordinates). End Turn is `.sp-wowbtn--end`. Rewards are taken by clicking the card element
+itself (`.sx-cardslot .spc`), not the slot wrapper. Screens: Settings is `.sx-set`, Codex is
+`.sx-codex__item`.
+
 ## Checks
 
 ```bash
